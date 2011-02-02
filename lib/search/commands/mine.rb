@@ -1,6 +1,8 @@
 require "net/http"
 require "uri"
 
+require "lib/search/parser"
+
 module Search::Commands
 
   class Mine < Search::Engine
@@ -13,10 +15,6 @@ module Search::Commands
       end
       
       html = fetch( 'http://www.google.com' )
-#      puts html
-      
-      
-#      puts html
       
       puts "Ran!"
     end
