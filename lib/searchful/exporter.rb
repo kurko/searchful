@@ -1,7 +1,7 @@
 require "rubygems"
 require "activerecord"
 
-module Search
+module Searchful
   
   class Exporter < ActiveRecord::Base
     

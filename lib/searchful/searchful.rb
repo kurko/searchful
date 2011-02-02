@@ -1,4 +1,4 @@
-module Search
+module Searchful
   
   class Engine < Shell::Run
 

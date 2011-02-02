@@ -1,20 +1,20 @@
 require "net/http"
 require "uri"
 
-require "lib/search/parser"
+require "lib/searchful/parser"
 
-module Search::Commands
+module Searchful::Commands
 
-  class Mine < Search::Engine
+  class Mine < Searchful::Engine
 
     def run
       
       if @arguments[0].nil?
-        puts "You must to specify a URI, e.g. www.google.com."
+        puts "You must to specify a URI, e.g. http://www.google.com."
         exit
       end
       
-      html = fetch( 'http://www.google.com' )
+      html = fetch( @arguments[0] )
       
       puts "Ran!"
     end

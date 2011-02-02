@@ -12,3 +12,11 @@ Core objectives:
 
 
 The real core's core objective is to learn Ruby.
+
+How to start
+-----------
+
+Type in the command-line:
+
+$ ./searchful mine http://www.google.com
+
