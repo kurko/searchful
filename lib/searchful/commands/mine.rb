@@ -15,6 +15,8 @@ module Searchful::Commands
       end
       
       html = fetch( @arguments[0] )
+      puts "Counting words..."
+      puts "Words found: " + Searchful::Parser.count_words(html.body).to_s
       
       puts "Ran!"
     end
