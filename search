@@ -17,4 +17,5 @@ unless command.empty? then
     command_obj = Search::Commands.const_get(command).new(ARGV)
     
   end
+  
 end

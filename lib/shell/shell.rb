@@ -66,7 +66,7 @@ module Shell
       }
       
       if command.empty? then
-        command = ""
+        command = nil
       end
       
       command

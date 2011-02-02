@@ -1,5 +1,5 @@
 require "test/unit"
-require THIS_TO_ROOT_PATH + "lib/shell/shell.rb"
+require "shell/shell"
 
 class TC_Shell_Parser < Test::Unit::TestCase
   
@@ -8,8 +8,8 @@ class TC_Shell_Parser < Test::Unit::TestCase
   end
   
   def test_get_command
-    assert_equal "push", Shell::Parser.get_command(["--test","push","--list", "other_pseudo_command"])
-    assert_equal false, Shell::Parser.get_command()
+    assert_equal "push", Shell::Parser.get_command( ["--test", "push", "--list", "other_pseudo_command"] )
+    assert_equal nil, Shell::Parser.get_command()
   end
   
   def test_get_options
