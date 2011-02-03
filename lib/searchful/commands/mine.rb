@@ -1,7 +1,7 @@
 require "net/http"
 require "uri"
 
-require "lib/searchful/parser"
+require "./lib/searchful/parser"
 
 module Searchful::Commands
 

@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 
-require "lib/shell/shell.rb"
-require "lib/searchful/searchful.rb"
+require_relative "lib/shell/shell.rb"
+require_relative "lib/searchful/searchful.rb"
 
 
 command = Shell::Parser::get_command ARGV
@@ -11,7 +11,7 @@ unless command.nil? || command.empty? then
   
   # checks if class file exists
   if File.exists? command_file then
-    require command_file
+    require_relative command_file
     command = command.capitalize
     command_obj = Searchful::Commands.const_get(command).new(ARGV)
     
