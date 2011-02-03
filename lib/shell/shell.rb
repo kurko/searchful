@@ -53,60 +53,44 @@ module Shell
   class Parser
     
     # defines the command of the application (e.g. 'push' in uplift push)
-    def self.get_command argv = []
-      command = String.new
-      
-      argv.each {
-        |e|
-        e_length = e.length
+    def self.get_command(argv = [])
+      command = ""
+      argv.each do |e|
         if (e[0,2] != "--" and e[0,1] != "-") then
             command = e
             break
         end
-      }
-      
-      if command.empty? then
-        command = nil
       end
-      
+      command = nil if command.empty?
       command
-      
     end # get_command
     
     # get only options in ARGV (arguments starting with _ or __)
     def self.get_options argv
-      @options = Array.new
-      
-      argv.each {
-        |e|
-        e_length = e.length
+      @options = []
+    
+      argv.each do |e|
         if e[0,2] == "--" 
-          @options.push e[2,e_length]
+          @options << e[2,e.length]
         elsif e[0,1] == "-"
-            @options.push e[1,e_length]
+          @options << e[1,e.length]
         end
-      }
+      end
       @options
     end # get_options
     
     # get arguments. arguments are anything written besides the command and options.
     # in 'push today --list', 'today' is the argument
-    def self.get_arguments argv
+    def self.get_arguments argv = []
       @arguments = Array.new
-      i = 0
-      argv.each {
-        |e|
-        
-        i+= 1
-        next if i == 1
-        
-        e_length = e.length
+      
+      argv.each_with_index do |e,index|
+        next if index == 0
         if e[0,2] != "--" and e[0,1] != "-"
-          
-          @arguments.push e[0,e_length]
+          @arguments << e[0,e.length]
         end
-        
-      }
+      end
+      
       @arguments
     end # get_options
     

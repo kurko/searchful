@@ -15,6 +15,10 @@ class TC_Shell_Parser < Test::Unit::TestCase
   def test_get_options
     assert_equal ["test","list"], Shell::Parser.get_options( ["push","--test","--list"] )
   end
+
+  def test_get_arguments
+    assert_equal ["today"], Shell::Parser.get_arguments(["push", "today", "--list"])
+  end
   
   def test_is_option
     assert Shell::Parser.is_option( "test", ["push","--test","--list"] )
