@@ -1,7 +1,6 @@
 require "net/http"
 require "uri"
-
-require "./lib/searchful/parser"
+require File.expand_path("../../parsers/html.rb", __FILE__)
 
 module Searchful::Commands
 
