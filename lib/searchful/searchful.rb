@@ -3,6 +3,7 @@ module Searchful
   class Engine < Shell::Run
 
     def initialize argv
+      return true if TESTING
       
       super argv
       @command

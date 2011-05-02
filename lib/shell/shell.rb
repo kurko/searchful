@@ -52,52 +52,72 @@ module Shell
   
   class Parser
     
-    # defines the command of the application (e.g. 'push' in uplift push)
-    def self.get_command(argv = [])
-      command = ""
-      argv.each do |e|
+    # ARGV has a command, options and arguments. The design is:
+    #
+    #   $ bin_file command argument1 argument2 -option1 -option2
+    #
+    # get_options() and get_arguments() return Array. get_command()
+    # returns String.
+    
+    def self.get_command argv = []
+      command = String.new
+      
+      argv.each {
+        |e|
+        e_length = e.length
         if (e[0,2] != "--" and e[0,1] != "-") then
             command = e
             break
         end
-      end
-      command = nil if command.empty?
+      }
+      return false if command.empty?
       command
-    end # get_command
+    end
     
-    # get only options in ARGV (arguments starting with _ or __)
     def self.get_options argv
       @options = []
-    
-      argv.each do |e|
+      @sanitized_options = []
+      
+      argv.each {
+        |e|
+        e_length = e.length
         if e[0,2] == "--" 
-          @options << e[2,e.length]
+          @options.push e[2,e_length]
         elsif e[0,1] == "-"
-          @options << e[1,e.length]
+            @options.push e[1,e_length]
         end
+      }
+      unless @options.empty?
+        @options.each { |e|
+          next if @sanitized_options.include?(e)
+          @sanitized_options << e
+        }
       end
-      @options
-    end # get_options
+      
+      @sanitized_options
+    end
     
-    # get arguments. arguments are anything written besides the command and options.
-    # in 'push today --list', 'today' is the argument
-    def self.get_arguments argv = []
-      @arguments = Array.new
-      
-      argv.each_with_index do |e,index|
-        next if index == 0
+    def self.get_arguments argv
+      @arguments = []
+      i = 0
+      argv.each {
+        |e|
+        
+        i+= 1
+        next if i == 1
+        
+        e_length = e.length
         if e[0,2] != "--" and e[0,1] != "-"
-          @arguments << e[0,e.length]
+          @arguments.push e[0,e_length]
         end
-      end
-      
+      }
       @arguments
-    end # get_options
+    end
     
     def self.is_option option, argv = Array.new
       argv_options = self.get_options argv
       argv_options.include?(option)
-    end # is_option
+    end
     
   end
   
